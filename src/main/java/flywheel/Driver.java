@@ -1,47 +1,44 @@
 package flywheel;
 
 import flywheel.library.TextEditor;
+import java.util.Random;
 
 public class Driver {
     public static void main(String[] args) {
         String character = "HelloWorldCS5800";
         String content = "";
         String filename = "documentTest.txt";
-        TextEditor firstDocument = new TextEditor();
-        TextEditor secondDocument = new TextEditor();
-        TextEditor thirdDocument = new TextEditor();
-        TextEditor fourthDocument = new TextEditor();
 
-        firstDocument.setCharacter(character);
-        firstDocument.setColor("Blue");
-        firstDocument.setSize(12);
-        firstDocument.setFont("Calibri");
-        firstDocument.save(filename);
-        content = firstDocument.open(filename);
-        System.out.print(content + "\n");
+        for(char charact : character.toCharArray()) {
+            TextEditor characterDocument = new TextEditor();
+            characterDocument.setCharacter(String.valueOf(charact));
+            characterDocument.setColor(randomlySelectColor());
+            characterDocument.setSize(randomlySelectSize());
+            characterDocument.setFont(randomlySelectFont());
+            characterDocument.save(filename);
+            content = characterDocument.open(filename);
+            System.out.print(content + "\n");
+        }
+    }
 
-        secondDocument.setCharacter(character);
-        secondDocument.setColor("Black");
-        secondDocument.setSize(14);
-        secondDocument.setFont("Verdana");
-        secondDocument.save(filename);
-        content = secondDocument.open(filename);
-        System.out.print(content + "\n");
+    private static String randomlySelectColor() {
+        String[] colors = new String[] {"Blue", "Red", "Black"};
+        Random random = new Random();
+        int randomIndex = random.nextInt(colors.length);
+        return colors[randomIndex];
+    }
 
-        thirdDocument.setCharacter(character);
-        thirdDocument.setColor("Red");
-        thirdDocument.setSize(16);
-        thirdDocument.setFont("Arial");
-        thirdDocument.save(filename);
-        content = thirdDocument.open(filename);
-        System.out.print(content + "\n");
+    private static Integer randomlySelectSize() {
+        Integer[] size = new Integer[] {12, 14, 16};
+        Random random = new Random();
+        int randomIndex = random.nextInt(size.length);
+        return size[randomIndex];
+    }
 
-        fourthDocument.setCharacter(character);
-        fourthDocument.setColor("Blue");
-        fourthDocument.setSize(14);
-        fourthDocument.setFont("Verdana");
-        fourthDocument.save(filename);
-        content = fourthDocument.open(filename);
-        System.out.print(content);
+    private static String randomlySelectFont() {
+        String[] fonts = new String[] {"Arial", "Calibri", "Verdana"};
+        Random random = new Random();
+        int randomIndex = random.nextInt(fonts.length);
+        return fonts[randomIndex];
     }
 }
